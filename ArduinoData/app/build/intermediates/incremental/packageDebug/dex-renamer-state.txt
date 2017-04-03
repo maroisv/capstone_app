@@ -1,0 +1,7 @@
+#Sat Mar 25 18:11:44 EDT 2017
+base.0=C\:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_07f12168db2ffc1a0942c623158976f9fc3a05e0
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=C\:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_1cee7b0c5ed347aca057be5528e43fd3c959332c\\classes.dex
+base.1=C\:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_1cee7b0c5ed347aca057be5528e43fd3c959332c
+file.0=C\:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_07f12168db2ffc1a0942c623158976f9fc3a05e0\\classes.dex
