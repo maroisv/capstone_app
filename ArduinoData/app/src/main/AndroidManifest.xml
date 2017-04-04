@@ -18,7 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BTconnecting"></activity>
+        <activity android:name=".BTconnecting" />
+        <activity
+            android:name=".ConnectedRecieving"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_connected_recieving"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

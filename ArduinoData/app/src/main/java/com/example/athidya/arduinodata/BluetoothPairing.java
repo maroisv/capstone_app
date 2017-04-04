@@ -46,7 +46,7 @@ public class BluetoothPairing extends AppCompatActivity {
         myBluetooth = BluetoothAdapter.getDefaultAdapter();
 
         if (myBluetooth == null) {
-            //Show a mensag. that the device has no bluetooth adapter
+            //Show a msg that the device has no bluetooth adapter
             Toast.makeText(getApplicationContext(), "Bluetooth Device Not Available", Toast.LENGTH_LONG).show();
             //finish apk
             finish();
@@ -64,7 +64,7 @@ public class BluetoothPairing extends AppCompatActivity {
                 BluetoothPairingList(); //method that will be called
             }
         });
-        mConnectThread = new ConnectThread(mDevice);
+       // mConnectThread = new ConnectThread(mDevice);
 
     }
 
@@ -97,11 +97,11 @@ public class BluetoothPairing extends AppCompatActivity {
             String address = info.substring(info.length() - 17);
 
             // Make an intent to start next activity.
-            Intent i = new Intent(BluetoothPairing.this, BTconnecting.class);
+            Intent i = new Intent(BluetoothPairing.this, ConnectedRecieving.class);
 
             //Change the activity.
             if (mReceiver.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
-                i.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity
+                i.putExtra(address, EXTRA_ADDRESS); //this will be received at ledControl (class) Activity
                 startActivity(i);
                 msg("connected");
             }
@@ -125,8 +125,10 @@ public class BluetoothPairing extends AppCompatActivity {
                     //Done searching
                 } else if (BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED.equals(action)) {
                     //Device is about to disconnect
+                    msg("Disconnecting bluedev.action stuff")
                 } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
                     //Device has disconnected
+                    msg("Disconnected bluedev.action stuff")
                 }
             }
         }

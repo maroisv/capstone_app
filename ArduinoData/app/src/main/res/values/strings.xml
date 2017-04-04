@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ArduinoData</string>
+
+    <string name="title_activity_connected_recieving">ConnectedRecieving</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
