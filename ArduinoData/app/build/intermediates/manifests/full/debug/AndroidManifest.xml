@@ -25,6 +25,11 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.athidya.arduinodata.BTconnecting" />
+        <activity
+            android:name="com.example.athidya.arduinodata.ConnectedRecieving"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_connected_recieving"
+            android:theme="@style/FullscreenTheme" />
     </application>
 
 </manifest>
