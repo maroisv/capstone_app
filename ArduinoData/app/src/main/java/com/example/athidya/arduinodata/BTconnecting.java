@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -21,6 +22,9 @@ import java.util.UUID;
 
 public class BTconnecting extends AppCompatActivity {
     Button btnDis;
+    TextView textView0;
+    TextView textView1;
+    TextView textView2;
     BluetoothAdapter myBluetooth;
     BluetoothSocket btSocket;
     BluetoothDevice mydevice;
@@ -30,8 +34,8 @@ public class BTconnecting extends AppCompatActivity {
     private ProgressDialog progress;
     //SSP UUID for android devices
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    InputStream outStream;
-    OutputStream inStream;
+    OutputStream outStream;
+    InputStream inStream;
     ConnectBT connectionThread;
 
 
@@ -39,7 +43,9 @@ public class BTconnecting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_connection);
-
+        textView0 = (TextView)findViewById(R.id.textView0);
+        textView1 = (TextView)findViewById(R.id.textView1);
+        textView2 = (TextView)findViewById(R.id.textView2);
         //receive the address of the bluetooth device
         Intent newint = getIntent();
         address = newint.getStringExtra(BluetoothPairing.EXTRA_ADDRESS);
@@ -64,7 +70,7 @@ public class BTconnecting extends AppCompatActivity {
         @Override
         protected void onPreExecute()
         {
-            progress = ProgressDialog.show(BTconnecting.this, "Connecting...", "Please wait!!!");  //show a progress dialog
+            progress = ProgressDialog.show(BTconnecting.this, "Connecting...", "Please wait");  //show a progress dialog
         }
 
         @Override
@@ -79,6 +85,8 @@ public class BTconnecting extends AppCompatActivity {
                     btSocket = remoteDevice.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                     btSocket.connect();//start connection
+                    outStream=btSocket.getOutputStream();
+                    inStream=btSocket.getInputStream();
                 }
             }
             catch (IOException e)
@@ -99,10 +107,50 @@ public class BTconnecting extends AppCompatActivity {
             }
             else
             {
-                msg("Connected.");
+                msg("Connected");
                 isBtConnected = true;
+
+
             }
             progress.dismiss();
+            readData();
+
+        }
+        private void readData() {
+            textView0.setText("Gas Level: " + gas());
+            textView1.setText("Temperature: " + temp());
+            textView2.setText("Sound (Decibels): "+sound());
+        }
+        private String temp() {
+            String temp = "t";
+
+            try {
+                outStream.write(temp.getBytes());
+                temp = String.valueOf(inStream.read());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return temp;
+        }
+        private String gas(){
+           String gas = "g";
+            try {
+                outStream.write(gas.getBytes());
+                gas = String.valueOf(inStream.read());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return gas;
+        }
+        private String sound(){
+            String dec = "o";
+            try{
+                outStream.write(dec.getBytes());
+                dec = String.valueOf(inStream.read());
+            }catch(IOException e) {
+                e.printStackTrace();
+            }
+            return dec;
         }
     }
     private void msg(String s)
