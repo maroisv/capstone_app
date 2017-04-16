@@ -1,5 +1,6 @@
 package com.example.athidya.arduinodata;
 
+import android.bluetooth.BluetoothServerSocket;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.bluetooth.BluetoothSocket;
@@ -20,16 +21,18 @@ import java.util.UUID;
 
 public class BTconnecting extends AppCompatActivity {
     Button btnDis;
-    BluetoothAdapter myBluetooth = null;
-    BluetoothSocket btSocket = null;
+    BluetoothAdapter myBluetooth;
+    BluetoothSocket btSocket;
+    BluetoothDevice mydevice;
     private boolean isBtConnected = false;
     //MAC address of bluetooth module received in create
-    private String address = null;
+    private String address = "";
     private ProgressDialog progress;
     //SSP UUID for android devices
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     InputStream outStream;
     OutputStream inStream;
+    ConnectBT connectionThread;
 
 
     @Override
@@ -41,6 +44,7 @@ public class BTconnecting extends AppCompatActivity {
         Intent newint = getIntent();
         address = newint.getStringExtra(BluetoothPairing.EXTRA_ADDRESS);
 
+        new ConnectBT().execute();
         //call the widgtes
         btnDis = (Button)findViewById(R.id.button1);
         btnDis.setOnClickListener(new View.OnClickListener()
@@ -71,8 +75,8 @@ public class BTconnecting extends AppCompatActivity {
                 if (btSocket == null || !isBtConnected)
                 {
                     myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
-                    BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
-                    btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
+                    BluetoothDevice remoteDevice = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
+                    btSocket = remoteDevice.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                     btSocket.connect();//start connection
                 }
@@ -106,16 +110,14 @@ public class BTconnecting extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
     }
 
-    private void Disconnect()
-    {
-        if (btSocket!=null) //If the btSocket is busy
+    private void Disconnect() {
+        if (btSocket != null) //If the btSocket is busy
         {
-            try
-            {
+            try {
                 btSocket.close(); //close connection
+            } catch (IOException e) {
+                msg("Error");
             }
-            catch (IOException e)
-            { msg("Error");}
         }
         finish(); //return to the first layout
     }

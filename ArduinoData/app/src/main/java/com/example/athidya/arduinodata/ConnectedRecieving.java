@@ -1,6 +1,7 @@
 package com.example.athidya.arduinodata;
 
 import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothServerSocket;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -160,4 +161,11 @@ public class ConnectedRecieving extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+    /*private class AcceptThread extends Thread {
+        // Use temp object
+        BluetoothServerSocket tmp = null;
+        try{
+            tmp =myBluetooth.listenUsingInsecureRfcommWithServiceRecord(,UUID)
+        }
+    }*/
 }
