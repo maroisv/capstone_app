@@ -1,12 +1,15 @@
 package com.example.athidya.arduinodata;
 
-import android.bluetooth.BluetoothServerSocket;
+import android.app.Activity;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -15,12 +18,21 @@ import android.os.AsyncTask;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.KeyStore;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
-
+import java.util.concurrent.RunnableFuture;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 
 public class BTconnecting extends AppCompatActivity {
     Button btnDis;
+    Button temp;
+    TextView textView0;
+    TextView textView1;
+    TextView textView2;
     BluetoothAdapter myBluetooth;
     BluetoothSocket btSocket;
     BluetoothDevice mydevice;
@@ -30,23 +42,31 @@ public class BTconnecting extends AppCompatActivity {
     private ProgressDialog progress;
     //SSP UUID for android devices
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    InputStream outStream;
-    OutputStream inStream;
-    ConnectBT connectionThread;
-
+    OutputStream outStream;
+    InputStream inStream;
+    private Handler myHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_connection);
-
+        textView0 = (TextView)findViewById(R.id.textView0);
+        textView1 = (TextView)findViewById(R.id.textView1);
+        textView2 = (TextView)findViewById(R.id.textView2);
+        btnDis = (Button)findViewById(R.id.button1);
+        temp = (Button)findViewById(R.id.temp);
         //receive the address of the bluetooth device
         Intent newint = getIntent();
         address = newint.getStringExtra(BluetoothPairing.EXTRA_ADDRESS);
-
         new ConnectBT().execute();
-        //call the widgtes
-        btnDis = (Button)findViewById(R.id.button1);
+
+      /*  temp.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v){
+
+            }
+        });*/
+
         btnDis.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -55,6 +75,7 @@ public class BTconnecting extends AppCompatActivity {
                 Disconnect(); //close connection
             }
         });
+
     }
 
     private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
@@ -64,7 +85,7 @@ public class BTconnecting extends AppCompatActivity {
         @Override
         protected void onPreExecute()
         {
-            progress = ProgressDialog.show(BTconnecting.this, "Connecting...", "Please wait!!!");  //show a progress dialog
+            progress = ProgressDialog.show(BTconnecting.this, "Connecting...", "Please wait");  //show a progress dialog
         }
 
         @Override
@@ -79,6 +100,9 @@ public class BTconnecting extends AppCompatActivity {
                     btSocket = remoteDevice.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                     btSocket.connect();//start connection
+                    outStream=btSocket.getOutputStream();
+                    inStream=btSocket.getInputStream();
+
                 }
             }
             catch (IOException e)
@@ -92,18 +116,68 @@ public class BTconnecting extends AppCompatActivity {
         {
             super.onPostExecute(result);
 
-            if (!ConnectSuccess)
-            {
+            if (!ConnectSuccess) {
                 msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
                 finish();
-            }
-            else
-            {
-                msg("Connected.");
+            } else {
+                msg("Connected");
                 isBtConnected = true;
             }
             progress.dismiss();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Timer readingtimer = new Timer();
+                    TimerTask readingtask = new TimerTask(){
+
+                        @Override
+                        public void run() {
+                            msg("timertask started");
+                            readDataaaaa(outStream, inStream);
+                        }
+                    };
+                    readingtimer.schedule(readingtask, 10000, 1000);
+                }
+            });
         }
+    }
+
+    private void readDataaaaa(OutputStream outputStream, InputStream inputStream) {
+        textView0.setText("Gas Level: " + gas(outputStream, inputStream));
+        textView1.setText("Temperature: " + temp(outputStream, inputStream));
+        textView2.setText("Sound (Decibels): "+sound(outputStream, inputStream));
+
+    }
+    private String temp(OutputStream outputStream, InputStream inputStream) {
+        String temp = "t";
+
+        try {
+            outStream.write(temp.getBytes());
+            temp = String.valueOf(inStream.read());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return temp;
+    }
+    private String gas(OutputStream outputStream, InputStream inputStream){
+        String gas = "g";
+        try {
+            outStream.write(gas.getBytes());
+            gas = String.valueOf(inStream.read());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return gas;
+    }
+    private String sound(OutputStream outputStream, InputStream inputStream){
+        String dec = "o";
+        try{
+            outStream.write(dec.getBytes());
+            dec = String.valueOf(inStream.read());
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+        return dec;
     }
     private void msg(String s)
     {
@@ -115,6 +189,7 @@ public class BTconnecting extends AppCompatActivity {
         {
             try {
                 btSocket.close(); //close connection
+                isBtConnected = false;
             } catch (IOException e) {
                 msg("Error");
             }
