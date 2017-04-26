@@ -11,7 +11,7 @@
     tools:context="com.example.athidya.arduinodata.BTconnecting">
 
     <TextView
-        android:text="TextView"
+        android:text="Temperature:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
@@ -23,7 +23,7 @@
         android:layout_marginTop="19dp" />
 
     <TextView
-        android:text="TextView"
+        android:text="Sound (Decibels):"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -41,8 +41,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+
     <TextView
-        android:text="TextView"
+        android:text="Gas Level:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView0"
@@ -50,5 +51,38 @@
         android:layout_alignBottom="@+id/button1"
         android:layout_alignLeft="@+id/textView1"
         android:layout_alignStart="@+id/textView1" />
+
+    <Button
+        android:text="Start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:layout_below="@+id/button1"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignStart="@+id/button1" />
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="100dip"
+        android:id="@+id/graph1"
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"/>
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="100dip"
+        android:id="@+id/graph2"
+        android:layout_below="@+id/graph1"
+        android:layout_alignLeft="@+id/graph1"
+        android:layout_alignStart="@+id/graph1"/>
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="100dip"
+        android:id="@+id/graph3"
+        android:layout_below="@+id/graph2"
+        android:layout_alignLeft="@+id/graph2"
+        android:layout_alignStart="@+id/graph2"/>
 
 </RelativeLayout>

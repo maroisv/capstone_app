@@ -18,7 +18,6 @@ import android.content.Intent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 
-
 public class BluetoothPairing extends AppCompatActivity {
     Button btnPaired;
     ListView devicelist;
@@ -95,7 +94,7 @@ public class BluetoothPairing extends AppCompatActivity {
             String address = info.substring(info.length() - 17);
             msg(address);
             // Make an intent to start next activity.
-            Intent i = new Intent(BluetoothPairing.this, BTconnecting.class);
+            Intent i = new Intent(BluetoothPairing.this, MainTabs.class);
             i.putExtra(EXTRA_ADDRESS, address);
             startActivity(i);
             msg("Trying to Connect");

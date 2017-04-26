@@ -11,6 +11,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
+    <meta-data
+        android:name="android.support.VERSION"
+        android:value="25.3.1" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,6 +34,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_connected_recieving"
             android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name="com.example.athidya.arduinodata.MainTabs"
+            android:label="@string/title_activity_main_tabs"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

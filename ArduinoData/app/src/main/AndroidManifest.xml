@@ -23,7 +23,11 @@
             android:name=".ConnectedRecieving"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_connected_recieving"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".MainTabs"
+            android:label="@string/title_activity_main_tabs"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
