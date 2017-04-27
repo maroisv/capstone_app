@@ -33,6 +33,19 @@ public class SensorFragment extends Fragment {
     GraphView graphTemp;
     GraphView graphSound;
 
+    MainTabs main;
+    String gasVal;
+    String tempVal;
+    String soundVal;
+    String[] coords;
+    String[] mapCoords;
+    String x;
+    String y;
+    String orient;
+    String ob1;
+    String ob2;
+    String ob3;
+
     LineGraphSeries<DataPoint> gasSeries;
     LineGraphSeries<DataPoint> tempSeries;
     LineGraphSeries<DataPoint> soundSeries;
@@ -157,29 +170,29 @@ public class SensorFragment extends Fragment {
 
     }
     private DataPoint[] readData() {
-        MainTabs main = (MainTabs) getActivity();
-        String gasVal = main.gas();
-        String tempVal = main.temp();
-        String soundVal = main.sound();
+        main = (MainTabs) getActivity();
+        gasVal = main.gas();
+        tempVal = main.temp();
+        soundVal = main.sound();
 
         textView0.setText("Gas Level: " + gasVal);
         textView1.setText("Temperature: " + tempVal);
         textView2.setText("Sound (Decibels): "+soundVal);
-        //main.getCoord();
-        /*
+
         if (nCounter == 0){
-            String[] mapCoords = main.getCoord();
-            String x = mapCoords[0];
-            String y = mapCoords[1];
-            String orient = mapCoords[2];
-            String ob1 = mapCoords[3];
-            String ob2 = mapCoords[4];
-            String ob3 = mapCoords[5];
+            main.sendCommand("u");
 
         //    System.out.println(mapCoords[0] + "," + mapCoords[1] +  "," + mapCoords[2] + "," + mapCoords[3] + "," + mapCoords[4] + "," + mapCoords[5]);
         //    textView3.setText(mapCoords[0] + "," + mapCoords[1] +  "," + mapCoords[2] + "," + mapCoords[3] + "," + mapCoords[4] + "," + mapCoords[5]);
         }
-        */
+        mapCoords = main.getCoord();
+        x = mapCoords[0];
+        y = mapCoords[1];
+        orient = mapCoords[2];
+        ob1 = mapCoords[3];
+        ob2 = mapCoords[4];
+        ob3 = mapCoords[5];
+        Log.d("Sensors", "Coord: " + x + ',' + y + "," + orient + "," + ob1 + ',' + ob2 + ',' + ob3);
 
         DataPoint gasPoint = new DataPoint(nCounter, Integer.parseInt(gasVal));
         DataPoint tempPoint = new DataPoint(nCounter, Integer.parseInt(tempVal));

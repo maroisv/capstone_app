@@ -178,14 +178,18 @@ public class MainTabs extends AppCompatActivity {
         int num = 0;
         String content = "";
         String temp = "";
+        byte[] foo = new byte[20];
 
         try {
+            inStream.read(foo);
             outStream.write(cmd.getBytes());
 
             temp = String.valueOf(inStream.read()-48);
             while (!temp.equals("-35")) {
                 if (temp.equals("-4")) {
                     content = content + ",";
+                } else if (temp.equals("-3")) {
+                    content = content + "-";
                 } else {
                     content = content + temp;
                 }
@@ -199,8 +203,16 @@ public class MainTabs extends AppCompatActivity {
         return content;
     }
 
+    public void sendCommand(String cmd) {
+        try {
+            outStream.write(cmd.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String[] getCoord() {
-        String[] coords = new String[6];
+        String[] coords = {"", "", "", "", "", ""};
 
         String content = getStringFromBluetooth("m");
         int index = 0;
