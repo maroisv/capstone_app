@@ -46,12 +46,12 @@ public class SensorFragment extends Fragment {
     TextView textView0;
     TextView textView1;
     TextView textView2;
+    TextView textView3;
 
     TimerTask mTimerTask;
     final Handler handler = new Handler();
     Timer t = new Timer();
     private int nCounter = 0;
-
 
     @Nullable
     @Override
@@ -72,12 +72,14 @@ public class SensorFragment extends Fragment {
         graphGas.addSeries(gasNormSeries);
         gasNormSeries.setColor(Color.RED);
 
+
+
         graphTemp = (GraphView) view.findViewById(R.id.graph2);
-        tempSeries = new LineGraphSeries<>();
-        graphTemp.addSeries(tempSeries);
         tempNormSeries = new LineGraphSeries<>();
         graphTemp.addSeries(tempNormSeries);
         tempNormSeries.setColor(Color.RED);
+        tempSeries = new LineGraphSeries<>();
+        graphTemp.addSeries(tempSeries);
 
         graphSound = (GraphView) view.findViewById(R.id.graph3);
         soundSeries = new LineGraphSeries<>();
@@ -98,9 +100,9 @@ public class SensorFragment extends Fragment {
         tempViewport.setMinY(0);
         soundViewport.setMinY(0);
 
-        gasViewport.setMaxY(80);
-        tempViewport.setMaxY(80);
-        soundViewport.setMaxY(80);
+        gasViewport.setMaxY(100);
+        tempViewport.setMaxY(100);
+        soundViewport.setMaxY(100);
 
         graphGas.getViewport().setXAxisBoundsManual(true);
         graphTemp.getViewport().setXAxisBoundsManual(true);
@@ -138,8 +140,8 @@ public class SensorFragment extends Fragment {
                         gasSeries.appendData(currData[0], true, 20);
                         gasNormSeries.appendData(new DataPoint(nCounter,50), true, 25);
 
+                        tempNormSeries.appendData(new DataPoint(nCounter,22), true, 25);
                         tempSeries.appendData(currData[1], true, 20);
-                        tempNormSeries.appendData(new DataPoint(nCounter,50), true, 25);
 
                         soundSeries.appendData(currData[2], true, 20);
                         soundNormSeries.appendData(new DataPoint(nCounter,50), true, 25);
@@ -151,7 +153,7 @@ public class SensorFragment extends Fragment {
             }};
 
         // public void schedule (TimerTask task, long delay, long period)
-        t.schedule(mTimerTask, 2000, 3000);  //
+        t.schedule(mTimerTask, 2000, 2000);  //
 
     }
     private DataPoint[] readData() {
@@ -163,6 +165,21 @@ public class SensorFragment extends Fragment {
         textView0.setText("Gas Level: " + gasVal);
         textView1.setText("Temperature: " + tempVal);
         textView2.setText("Sound (Decibels): "+soundVal);
+        //main.getCoord();
+        /*
+        if (nCounter == 0){
+            String[] mapCoords = main.getCoord();
+            String x = mapCoords[0];
+            String y = mapCoords[1];
+            String orient = mapCoords[2];
+            String ob1 = mapCoords[3];
+            String ob2 = mapCoords[4];
+            String ob3 = mapCoords[5];
+
+        //    System.out.println(mapCoords[0] + "," + mapCoords[1] +  "," + mapCoords[2] + "," + mapCoords[3] + "," + mapCoords[4] + "," + mapCoords[5]);
+        //    textView3.setText(mapCoords[0] + "," + mapCoords[1] +  "," + mapCoords[2] + "," + mapCoords[3] + "," + mapCoords[4] + "," + mapCoords[5]);
+        }
+        */
 
         DataPoint gasPoint = new DataPoint(nCounter, Integer.parseInt(gasVal));
         DataPoint tempPoint = new DataPoint(nCounter, Integer.parseInt(tempVal));

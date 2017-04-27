@@ -91,15 +91,16 @@ public class MapFragment extends Fragment {
             }
         });
 
-        readData();
+      //  readData();
         return view;
     }
 
 
-    private void readData() {
-        MainTabs main = (MainTabs) getActivity();
-        String[] mapVal = main.getCoord();
-        textView0.setText("x: " + mapVal[0] + "y: " + mapVal[1] + "orientation: " + mapVal[2]);
-    }
+    //private void readData() {
+     //   MainTabs main = (MainTabs) getActivity();
+     //   String[] mapVal = main.getCoord();
+      //  System.out.println(mapVal[0]);
+       // textView0.setText("x: " + mapVal[0] + "y: " + mapVal[1] + "orientation: " + mapVal[2]);
+    //}
 
 }
