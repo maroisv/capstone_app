@@ -3,12 +3,15 @@ package com.example.athidya.arduinodata;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -17,11 +20,14 @@ import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.XYSeries;
 import com.androidplot.xy.*;
+import com.jjoe64.graphview.series.DataPoint;
 
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.example.athidya.arduinodata.R.id.plot;
 
@@ -31,9 +37,11 @@ import static com.example.athidya.arduinodata.R.id.plot;
 
 public class MapFragment extends Fragment {
     private static final String TAG = "Tab2Fragment";
-
-    private Button btnTEST;
+    TextView textView0;
     private XYPlot map;
+    TimerTask mTimerTask;
+    final Handler handler = new Handler();
+    Timer t = new Timer();
 /* mapping information given in coordinate (x,y)
 *  orientation float
 *  distance sensors left, middle, right
@@ -82,6 +90,16 @@ public class MapFragment extends Fragment {
                 return null;
             }
         });
+
+        readData();
         return view;
     }
+
+
+    private void readData() {
+        MainTabs main = (MainTabs) getActivity();
+        String[] mapVal = main.getCoord();
+        textView0.setText("x: " + mapVal[0] + "y: " + mapVal[1] + "orientation: " + mapVal[2]);
+    }
+
 }

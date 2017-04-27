@@ -33,7 +33,6 @@ public class SensorFragment extends Fragment {
     GraphView graphTemp;
     GraphView graphSound;
 
-
     LineGraphSeries<DataPoint> gasSeries;
     LineGraphSeries<DataPoint> tempSeries;
     LineGraphSeries<DataPoint> soundSeries;
@@ -152,7 +151,7 @@ public class SensorFragment extends Fragment {
             }};
 
         // public void schedule (TimerTask task, long delay, long period)
-        t.schedule(mTimerTask, 2000, 1000);  //
+        t.schedule(mTimerTask, 2000, 3000);  //
 
     }
     private DataPoint[] readData() {
@@ -169,7 +168,7 @@ public class SensorFragment extends Fragment {
         DataPoint tempPoint = new DataPoint(nCounter, Integer.parseInt(tempVal));
         DataPoint soundPoint = new DataPoint(nCounter, Integer.parseInt(soundVal));
 
-        DataPoint[] currData = new DataPoint[]{gasPoint, tempPoint, soundPoint};
+        DataPoint[] currData = new DataPoint[]{gasPoint,tempPoint,soundPoint};
         return currData;
     }
 

@@ -90,7 +90,7 @@ public class MainTabs extends AppCompatActivity {
         });
     }
 
-    private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
+    private class ConnectBT extends AsyncTask<Void, Void, Void>
     {
         private boolean ConnectSuccess = true; //if it's here, it's almost connected
 
@@ -161,37 +161,211 @@ public class MainTabs extends AppCompatActivity {
         }
         finish(); //return to the first layout
     }
-
+/*
     public String temp() {
         String temp = "t";
 
         try {
             outStream.write(temp.getBytes());
             temp = String.valueOf(inStream.read());
+            System.out.println(inStream.available());
+            System.out.println(temp);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return temp;
     }
+    */
+
+    public String temp() {
+        String temp = "t";
+        String tempten = "";
+        String tempone = "";
+        String tempdis = "";
+
+        try {
+            outStream.write(temp.getBytes());
+
+            tempten = String.valueOf(inStream.read()-48);
+            tempone = String.valueOf(inStream.read()-48);
+            tempdis = String.valueOf(inStream.read()-48);
+            System.out.println(tempdis);
+            if (tempdis.equals("-35")){
+                temp = tempten+tempone;
+                inStream.skip(1);
+            }
+            else{
+                temp = tempten+tempone+tempdis;
+                inStream.skip(2);
+            }
+            Log.d("debug", temp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return temp;
+    }
+
     public String gas(){
         String gas = "g";
+        String gasten = "";
+        String gasone = "";
+        String gasdis = "";
+
         try {
             outStream.write(gas.getBytes());
-            gas = String.valueOf(inStream.read());
+
+            gasten = String.valueOf(inStream.read()-48);
+            gasone = String.valueOf(inStream.read()-48);
+            gasdis = String.valueOf(inStream.read()-48);
+            System.out.println(gasdis);
+            if (gasdis.equals("-35")){
+                gas = gasten+gasone;
+                inStream.skip(1);
+            }
+            else{
+                gas = gasten+gasone+gasdis;
+                inStream.skip(2);
+            }
+            Log.d("debug", gas);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return gas;
     }
+
     public String sound(){
         String dec = "o";
-        try{
+
+        String decten = "";
+        String decone = "";
+        String decdis = "";
+
+        try {
             outStream.write(dec.getBytes());
-            dec = String.valueOf(inStream.read());
-        }catch(IOException e) {
+
+            decten = String.valueOf(inStream.read()-48);
+            decone = String.valueOf(inStream.read()-48);
+            decdis = String.valueOf(inStream.read()-48);
+            System.out.println(decdis);
+            if (decdis.equals("-35")){
+                dec = decten+decone;
+                inStream.skip(1);
+            }
+            else{
+                dec = decten+decone+decdis;
+                inStream.skip(2);
+            }
+            Log.d("debug", dec);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return dec;
+    }
+
+    public String[] getCoord() {
+        String coord = "m";
+        System.out.println(String.valueOf(coord.getBytes()[0]));
+        String[] coords = new String[6];
+
+        String coordtenx = "";
+        String coordonex = "";
+        String coorddis1 = "";
+        String coordteny = "";
+        String coordoney = "";
+        String coorddis2 = "";
+        String coordtenorien = "";
+        String coordoneorien = "";
+        String coorddis3 = "";
+        String coordteno1 = "";
+        String coordoneo1 = "";
+        String coorddis4;
+        String coordteno2 = "";
+        String coordoneo2 = "";
+        String coorddis5;
+        String coordteno3 = "";
+        String coordoneo3 = "";
+        String coorddis6;
+
+
+        try {
+            outStream.write(coord.getBytes());
+            coordtenx = String.valueOf(inStream.read()-48);
+            coordonex = String.valueOf(inStream.read()-48);
+            coorddis1 = String.valueOf(inStream.read()-48);
+            System.out.println(coorddis1);
+            if (coorddis1.equals("-4")){
+                coords[0] = coordtenx+coordonex;
+            }
+            else{
+                coords[0] = coordtenx+coordonex+coorddis1;
+                inStream.skip(1);
+            }
+
+            coordteny = String.valueOf(inStream.read()-48);
+            coordoney = String.valueOf(inStream.read()-48);
+            coorddis2 = String.valueOf(inStream.read()-48);
+            System.out.println(coorddis2);
+            if (coorddis2.equals("-4")){
+                coords[1] = coordteny+coordoney;
+            }
+            else{
+                coords[1] = coordteny+coordoney+coorddis2;
+                inStream.skip(1);
+            }
+
+            coordtenorien = String.valueOf(inStream.read()-48);
+            coordoneorien = String.valueOf(inStream.read()-48);
+            coorddis3 = String.valueOf(inStream.read()-48);
+            System.out.println(coorddis3);
+            if (coorddis3.equals("-4")){
+                coords[2] = coordtenorien+coordoneorien;
+            }
+            else{
+                coords[2] = coordtenorien+coordoneorien+coorddis3;
+                inStream.skip(1);
+            }
+
+            coordteno1 = String.valueOf(inStream.read()-48);
+            coordoneo1 = String.valueOf(inStream.read()-48);
+            coorddis4 = String.valueOf(inStream.read()-48);
+            System.out.println(coorddis4);
+            if (coorddis4.equals("-4")){
+                coords[3] = coordteno1+coordoneo1;
+            }
+            else{
+                coords[3] = coordteno1+coordoneo1+coorddis4;
+                inStream.skip(1);
+            }
+
+            coordteno2 = String.valueOf(inStream.read()-48);
+            coordoneo2 = String.valueOf(inStream.read()-48);
+            coorddis5 = String.valueOf(inStream.read()-48);
+            System.out.println(coorddis5);
+            if (coorddis5.equals("-4")){
+                coords[4] = coordteno2+coordoneo2;
+            }
+            else{
+                coords[4] = coordteno2+coordoneo2+coorddis5;
+                inStream.skip(1);
+            }
+
+            coordteno3 = String.valueOf(inStream.read()-48);
+            coordoneo3 = String.valueOf(inStream.read()-48);
+            coorddis6 = String.valueOf(inStream.read()-48);
+            System.out.println(coorddis6);
+            if (coorddis6.equals("-35")){
+                coords[3] = coordteno3+coordoneo3;
+                inStream.skip(1);
+            }
+            else{
+                coords[3] = coordteno3+coordoneo3+coorddis6;
+                inStream.skip(2);
+            }
+
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+        return coords;
     }
 
 
@@ -201,5 +375,6 @@ public class MainTabs extends AppCompatActivity {
         adapter.addFragment(new MapFragment(), "Environment Map");
         viewPager.setAdapter(adapter);
     }
+
 
 }
