@@ -57,6 +57,7 @@ public class MainTabs extends AppCompatActivity {
     InputStream inStream;
     ConnectBT connectionThread;
     Button btnDis;
+    String[] sendCoords = {"", "", "", "", "", ""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class MainTabs extends AppCompatActivity {
                 Disconnect(); //close connection
             }
         });
+
     }
 
     private class ConnectBT extends AsyncTask<Void, Void, Void>
@@ -223,7 +225,14 @@ public class MainTabs extends AppCompatActivity {
                 coords[index] = coords[index] + content.charAt(i);
             }
         }
+        this.sendCoords = coords;
         return coords;
+    }
+
+
+
+    public String[] sendCoords(){
+        return sendCoords;
     }
 
     private void setupViewPager(ViewPager viewPager) {

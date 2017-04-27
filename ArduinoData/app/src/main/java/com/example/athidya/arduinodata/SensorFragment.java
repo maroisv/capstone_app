@@ -1,5 +1,6 @@
 package com.example.athidya.arduinodata;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -59,7 +60,6 @@ public class SensorFragment extends Fragment {
     TextView textView0;
     TextView textView1;
     TextView textView2;
-    TextView textView3;
 
     TimerTask mTimerTask;
     final Handler handler = new Handler();
@@ -84,8 +84,6 @@ public class SensorFragment extends Fragment {
         gasNormSeries = new LineGraphSeries<>();
         graphGas.addSeries(gasNormSeries);
         gasNormSeries.setColor(Color.RED);
-
-
 
         graphTemp = (GraphView) view.findViewById(R.id.graph2);
         tempNormSeries = new LineGraphSeries<>();
@@ -181,10 +179,8 @@ public class SensorFragment extends Fragment {
 
         if (nCounter == 0){
             main.sendCommand("u");
-
-        //    System.out.println(mapCoords[0] + "," + mapCoords[1] +  "," + mapCoords[2] + "," + mapCoords[3] + "," + mapCoords[4] + "," + mapCoords[5]);
-        //    textView3.setText(mapCoords[0] + "," + mapCoords[1] +  "," + mapCoords[2] + "," + mapCoords[3] + "," + mapCoords[4] + "," + mapCoords[5]);
         }
+
         mapCoords = main.getCoord();
         x = mapCoords[0];
         y = mapCoords[1];
@@ -193,6 +189,8 @@ public class SensorFragment extends Fragment {
         ob2 = mapCoords[4];
         ob3 = mapCoords[5];
         Log.d("Sensors", "Coord: " + x + ',' + y + "," + orient + "," + ob1 + ',' + ob2 + ',' + ob3);
+
+        String coords = x + ',' + y + "," + orient + "," + ob1 + ',' + ob2 + ',' + ob3;
 
         DataPoint gasPoint = new DataPoint(nCounter, Integer.parseInt(gasVal));
         DataPoint tempPoint = new DataPoint(nCounter, Integer.parseInt(tempVal));

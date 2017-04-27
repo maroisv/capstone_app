@@ -1,5 +1,6 @@
 package com.example.athidya.arduinodata;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
@@ -42,6 +43,10 @@ public class MapFragment extends Fragment {
     TimerTask mTimerTask;
     final Handler handler = new Handler();
     Timer t = new Timer();
+    MainTabs main;
+    String[] coordsArr;
+    Button btnStart;
+
 /* mapping information given in coordinate (x,y)
 *  orientation float
 *  distance sensors left, middle, right
@@ -52,6 +57,10 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map,container,false);
         super.onCreate(savedInstanceState);
+
+        btnStart = (Button) view.findViewById(R.id.button1);
+        btnStart.setOnClickListener(mButtonStartListener);
+
         Integer[] xcoords = new Integer[1000];
         Integer[] ycoords = new Integer[1000];
 
@@ -96,11 +105,43 @@ public class MapFragment extends Fragment {
     }
 
 
-    //private void readData() {
-     //   MainTabs main = (MainTabs) getActivity();
-     //   String[] mapVal = main.getCoord();
-      //  System.out.println(mapVal[0]);
-       // textView0.setText("x: " + mapVal[0] + "y: " + mapVal[1] + "orientation: " + mapVal[2]);
-    //}
+    View.OnClickListener mButtonStartListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            doTimerTask();
+        }
+    };
+
+
+    public void doTimerTask(){
+
+
+        mTimerTask = new TimerTask() {
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        readData();
+                        //plot coordsArr[0] for x and coordsArr[1] for y
+                    }
+                });
+            }};
+
+        // public void schedule (TimerTask task, long delay, long period)
+        t.schedule(mTimerTask, 1000, 3000);  //
+
+    }
+
+    private String[] readData() {
+        main = (MainTabs) getActivity();
+        coordsArr = main.sendCoords();
+        String x = coordsArr[0];
+        String y = coordsArr[1];
+        String orient = coordsArr[2];
+        String ob1 = coordsArr[3];
+        String ob2 = coordsArr[4];
+        String ob3 = coordsArr[5];
+        System.out.println("Coords: " + x + ',' + y + "," + orient + "," + ob1 + ',' + ob2 + ',' + ob3 );
+        //textView0.setText("Coords: " + x + ',' + y + "," + orient + "," + ob1 + ',' + ob2 + ',' + ob3 );
+        return coordsArr;
+    }
 
 }
