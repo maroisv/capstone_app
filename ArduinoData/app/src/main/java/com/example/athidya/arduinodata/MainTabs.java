@@ -163,226 +163,56 @@ public class MainTabs extends AppCompatActivity {
     }
 
     public String temp() {
-        String temp = "t";
-        String tempten = "";
-        String tempone = "";
-        String tempdis = "";
-
-        try {
-            outStream.write(temp.getBytes());
-
-            tempten = String.valueOf(inStream.read()-48);
-            tempone = String.valueOf(inStream.read()-48);
-            tempdis = String.valueOf(inStream.read()-48);
-
-            if (tempdis.equals("-35")){
-                temp = tempten+tempone;
-                inStream.skip(1);
-            }
-            else{
-                temp = tempten+tempone+tempdis;
-                inStream.skip(2);
-            }
-            Log.d("debug", temp);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return temp;
+        return getStringFromBluetooth("t");
     }
 
-    public String gas(){
-        String gas = "g";
-        String gasten = "";
-        String gasone = "";
-        String gasdis = "";
-
-        try {
-            outStream.write(gas.getBytes());
-
-            gasten = String.valueOf(inStream.read()-48);
-            gasone = String.valueOf(inStream.read()-48);
-            gasdis = String.valueOf(inStream.read()-48);
-            if (gasdis.equals("-35")){
-                gas = gasten+gasone;
-                inStream.skip(1);
-            }
-            else{
-                gas = gasten+gasone+gasdis;
-                inStream.skip(2);
-            }
-            Log.d("debug", gas);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return gas;
+    public String gas() {
+        return getStringFromBluetooth("g");
     }
 
     public String sound(){
-        String dec = "o";
+        return getStringFromBluetooth("o");
+    }
 
-        String decten = "";
-        String decone = "";
-        String decdis = "";
+    public String getStringFromBluetooth(String cmd) {
+        int num = 0;
+        String content = "";
+        String temp = "";
 
         try {
-            outStream.write(dec.getBytes());
+            outStream.write(cmd.getBytes());
 
-            decten = String.valueOf(inStream.read()-48);
-            decone = String.valueOf(inStream.read()-48);
-            decdis = String.valueOf(inStream.read()-48);
-            if (decdis.equals("-35")){
-                dec = decten+decone;
-                inStream.skip(1);
+            temp = String.valueOf(inStream.read()-48);
+            while (!temp.equals("-35")) {
+                if (temp.equals("-4")) {
+                    content = content + ",";
+                } else {
+                    content = content + temp;
+                }
+                temp = String.valueOf(inStream.read()-48);
             }
-            else{
-                dec = decten+decone+decdis;
-                inStream.skip(2);
-            }
-            Log.d("debug", dec);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return dec;
+
+        return content;
     }
 
     public String[] getCoord() {
-        String coord = "m";
         String[] coords = new String[6];
 
-        String coordtenx = "";
-        String coordonex = "";
-        String coorddis1 = "";
-        String coordteny = "";
-        String coordoney = "";
-        String coorddis2 = "";
-        String coordtenorien = "";
-        String coordoneorien = "";
-        String coorddis3 = "";
-        String coordteno1 = "";
-        String coordoneo1 = "";
-        String coorddis4;
-        String coordteno2 = "";
-        String coordoneo2 = "";
-        String coorddis5;
-        String coordteno3 = "";
-        String coordoneo3 = "";
-        String coorddis6;
-
-        try {
-            outStream.write(coord.getBytes());
-            coordtenx = String.valueOf(inStream.read()-48);
-            coordonex = String.valueOf(inStream.read()-48);
-            if (coordonex.equals("-4")){
-                coords[0] = coordtenx;
+        String content = getStringFromBluetooth("m");
+        int index = 0;
+        for (int i = 0; i < content.length(); i++) {
+            if (content.charAt(i) == ',') {
+                index++;
+            } else {
+                coords[index] = coords[index] + content.charAt(i);
             }
-            else{
-                coorddis1 = String.valueOf(inStream.read()-48);
-                System.out.println(coorddis1);
-
-                if (coorddis1.equals("-4")){
-                    coords[0] = coordtenx+coordonex;
-                }
-                else{
-                    coords[0] = coordtenx+coordonex+coorddis1;
-                    inStream.skip(1);
-                }
-            }
-
-
-            coordteny = String.valueOf(inStream.read()-48);
-            coordoney = String.valueOf(inStream.read()-48);
-            if (coordoney.equals("-4")){
-                coords[1] = coordteny;
-            }
-            else{
-                coorddis2 = String.valueOf(inStream.read()-48);
-                System.out.println(coorddis2);
-                if (coorddis2.equals("-4")){
-                    coords[1] = coordteny+coordoney;
-                }
-                else{
-                    coords[1] = coordteny+coordoney+coorddis2;
-                    inStream.skip(1);
-                }
-            }
-
-            coordtenorien = String.valueOf(inStream.read()-48);
-            coordoneorien = String.valueOf(inStream.read()-48);
-            if (coordoneorien.equals("-4")){
-                coords[2] = coordtenorien;
-            }
-            else{
-                coorddis3 = String.valueOf(inStream.read()-48);
-                if (coorddis3.equals("-4")){
-                    coords[2] = coordtenorien+coordoneorien;
-                }
-                else{
-                    coords[2] = coordtenorien+coordoneorien+coorddis3;
-                    inStream.skip(1);
-                }
-            }
-
-
-            coordteno1 = String.valueOf(inStream.read()-48);
-            coordoneo1 = String.valueOf(inStream.read()-48);
-            if (coordoneo1.equals("-4")){
-                coords[3] = coordteno1;
-            }
-            else{
-                coorddis4 = String.valueOf(inStream.read()-48);
-                if (coorddis4.equals("-4")){
-                    coords[3] = coordteno1+coordoneo1;
-                }
-                else{
-                    coords[3] = coordteno1+coordoneo1+coorddis4;
-                    inStream.skip(1);
-                }
-            }
-
-
-            coordteno2 = String.valueOf(inStream.read()-48);
-            coordoneo2 = String.valueOf(inStream.read()-48);
-            if (coordoneo2.equals("-4")){
-                coords[4] = coordteno2;
-            }
-            else{
-                coorddis5 = String.valueOf(inStream.read()-48);
-                if (coorddis5.equals("-4")){
-                    coords[4] = coordteno2+coordoneo2;
-                }
-                else{
-                    coords[4] = coordteno2+coordoneo2+coorddis5;
-                    inStream.skip(1);
-                }
-            }
-
-
-            coordteno3 = String.valueOf(inStream.read()-48);
-            coordoneo3 = String.valueOf(inStream.read()-48);
-            if (coordoneo3.equals("-35")){
-                coords[5] = coordteno3;
-            }
-            else{
-                coorddis6 = String.valueOf(inStream.read()-48);
-                if (coorddis6.equals("-35")){
-                    coords[5] = coordteno3+coordoneo3;
-                    inStream.skip(1);
-                }
-                else{
-                    coords[5] = coordteno3+coordoneo3+coorddis6;
-                    inStream.skip(2);
-                }
-            }
-
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < coords.length; i++){
-            System.out.println(coords[i]);
         }
         return coords;
     }
-
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
