@@ -169,7 +169,7 @@ public class SensorFragment extends Fragment {
             t = null;
         }
         ((MainTabs) getActivity()).sendCommand("x");
-        // ((MainTabs) getActivity()).sendCommand("p");
+        ((MainTabs) getActivity()).sendCommand("p");
     }
 
 
