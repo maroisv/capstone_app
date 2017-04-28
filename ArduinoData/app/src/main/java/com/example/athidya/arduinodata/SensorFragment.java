@@ -227,12 +227,12 @@ public class SensorFragment extends Fragment {
         ob1 = mapCoords[3];
         ob2 = mapCoords[4];
         ob3 = mapCoords[5];
-        xobj1 = Math.cos(obj1ang)*Double.parseDouble(ob1) + Integer.parseInt(x);
-        yobj1 = Math.sin(obj1ang)*Double.parseDouble(ob1) + Integer.parseInt(y);
-        xobj2 = Math.cos(obj2ang)*Double.parseDouble(ob2) + Integer.parseInt(x);
-        yobj2 = Math.sin(obj2ang)*Double.parseDouble(ob2) + Integer.parseInt(y);
-        xobj3 = Math.cos(obj3ang)*Double.parseDouble(ob3) + Integer.parseInt(x);
-        yobj3 = Math.sin(obj3ang)*Double.parseDouble(ob3) + Integer.parseInt(y);
+        xobj1 = Math.sin(obj1ang)*Double.parseDouble(ob1) + Integer.parseInt(x);
+        yobj1 = Math.cos(obj1ang)*Double.parseDouble(ob1) + Integer.parseInt(y);
+        xobj2 = Math.sin(obj2ang)*Double.parseDouble(ob2) + Integer.parseInt(x);
+        yobj2 = Math.cos(obj2ang)*Double.parseDouble(ob2) + Integer.parseInt(y);
+        xobj3 = Math.sin(obj3ang)*Double.parseDouble(ob3) + Integer.parseInt(x);
+        yobj3 = Math.cos(obj3ang)*Double.parseDouble(ob3) + Integer.parseInt(y);
         Log.d("Sensors", "Coord: " + x + ',' + y + "," + orient + "," + ob1 + ',' + ob2 + ',' + ob3);
 
         String coords = x + ',' + y + "," + orient + "," + ob1 + ',' + ob2 + ',' + ob3;
@@ -245,20 +245,20 @@ public class SensorFragment extends Fragment {
         ((MainTabs) getActivity()).getyVals().add(Integer.parseInt(y));
 
         if(Integer.parseInt(ob1) < 100) {
-           // ((MainTabs) getActivity()).getxobVals().add((int) xobj1);
-           // ((MainTabs) getActivity()).getyobVals().add((int) yobj1);
-            ((MainTabs) getActivity()).getxobVals().add((int) Integer.parseInt(x) - Integer.parseInt(ob1));
-            ((MainTabs) getActivity()).getyobVals().add(Integer.parseInt(y));
+            ((MainTabs) getActivity()).getxobVals().add((int) xobj1);
+            ((MainTabs) getActivity()).getyobVals().add((int) yobj1);
+            //((MainTabs) getActivity()).getxobVals().add((int) Integer.parseInt(x) - Integer.parseInt(ob1));
+            //((MainTabs) getActivity()).getyobVals().add(Integer.parseInt(y));
         }
         if (Integer.parseInt(ob2) < 100) {
-           // ((MainTabs) getActivity()).getxobVals().add((int) xobj2);
-           // ((MainTabs) getActivity()).getyobVals().add((int) yobj2);
+            ((MainTabs) getActivity()).getxobVals().add((int) xobj2);
+            ((MainTabs) getActivity()).getyobVals().add((int) yobj2);
         }
         if (Integer.parseInt(ob3) < 100) {
-           // ((MainTabs) getActivity()).getxobVals().add((int) xobj3);
-           // ((MainTabs) getActivity()).getyobVals().add((int) yobj3);
-            ((MainTabs) getActivity()).getxobVals().add((int) Integer.parseInt(x) + Integer.parseInt(ob3));
-            ((MainTabs) getActivity()).getyobVals().add(Integer.parseInt(y));
+            ((MainTabs) getActivity()).getxobVals().add((int) xobj3);
+            ((MainTabs) getActivity()).getyobVals().add((int) yobj3);
+            //((MainTabs) getActivity()).getxobVals().add((int) Integer.parseInt(x) + Integer.parseInt(ob3));
+            //((MainTabs) getActivity()).getyobVals().add(Integer.parseInt(y));
         }
 
 
