@@ -58,6 +58,7 @@ public class SensorFragment extends Fragment {
     LineGraphSeries<DataPoint> soundNormSeries;
 
     Button btnStart;
+    Button btnStop;
 
     TextView textView0;
     TextView textView1;
@@ -74,6 +75,9 @@ public class SensorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sensor,container,false);
         btnStart = (Button) view.findViewById(R.id.button2);
         btnStart.setOnClickListener(mButtonStartListener);
+
+        btnStop = (Button) view.findViewById(R.id.buttonStop);
+        btnStop.setOnClickListener(mButtonStopListener);
 
         super.onCreate(savedInstanceState);
         textView0 = (TextView) view.findViewById(R.id.textView0);
@@ -138,23 +142,25 @@ public class SensorFragment extends Fragment {
 
     View.OnClickListener mButtonStartListener = new View.OnClickListener() {
         public void onClick(View v) {
+            doTimerTask();
+            v.setVisibility(View.INVISIBLE);
+        }
+    };
 
-            if (!running) {
-                doTimerTask();
-                running = true;
-            } else {
-                stop();
-                running = false;
-            }
+    View.OnClickListener mButtonStopListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            stop();
+            btnStart.setVisibility(View.VISIBLE);
         }
     };
 
     public void stop() {
-        t.cancel();
-        mTimerTask.cancel();
+        if (t != null) {
+            t.cancel();
+            t = null;
+        }
         ((MainTabs) getActivity()).sendCommand("x");
-        ((MainTabs) getActivity()).sendCommand("b");
-
+        // ((MainTabs) getActivity()).sendCommand("p");
     }
 
 
@@ -165,15 +171,15 @@ public class SensorFragment extends Fragment {
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-                        DataPoint[] currData = readData();
-                        gasSeries.appendData(currData[0], true, 20);
-                        gasNormSeries.appendData(new DataPoint(nCounter,50), true, 25);
+                        DataPoint currData = readData();
+                        //gasSeries.appendData(currData[0], true, 20);
+                        //gasNormSeries.appendData(new DataPoint(nCounter,50), true, 25);
 
                         tempNormSeries.appendData(new DataPoint(nCounter,22), true, 25);
-                        tempSeries.appendData(currData[1], true, 20);
+                        tempSeries.appendData(currData, true, 20);
 
-                        soundSeries.appendData(currData[2], true, 20);
-                        soundNormSeries.appendData(new DataPoint(nCounter,50), true, 25);
+                        //soundSeries.appendData(currData[2], true, 20);
+                        //soundNormSeries.appendData(new DataPoint(nCounter,50), true, 25);
 
                         Log.d("TIMER", "TimerTask run");
                         nCounter++;
@@ -185,15 +191,15 @@ public class SensorFragment extends Fragment {
         t.schedule(mTimerTask, 100, 2000);  //
 
     }
-    private DataPoint[] readData() {
+    private DataPoint readData() {
         main = (MainTabs) getActivity();
-        gasVal = main.gas();
+        //gasVal = main.gas();
         tempVal = main.temp();
-        soundVal = main.sound();
+        //soundVal = main.sound();
 
-        textView0.setText("Gas Level: " + gasVal);
+        //textView0.setText("Gas Level: " + gasVal);
         textView1.setText("Temperature: " + tempVal);
-        textView2.setText("Sound (Decibels): "+soundVal);
+        //textView2.setText("Sound (Decibels): "+soundVal);
 
         if (nCounter == 0){
             main.sendCommand("u");
@@ -210,15 +216,15 @@ public class SensorFragment extends Fragment {
 
         String coords = x + ',' + y + "," + orient + "," + ob1 + ',' + ob2 + ',' + ob3;
 
-        DataPoint gasPoint = new DataPoint(nCounter, Integer.parseInt(gasVal));
+        //DataPoint gasPoint = new DataPoint(nCounter, Integer.parseInt(gasVal));
         DataPoint tempPoint = new DataPoint(nCounter, Integer.parseInt(tempVal));
-        DataPoint soundPoint = new DataPoint(nCounter, Integer.parseInt(soundVal));
+        //DataPoint soundPoint = new DataPoint(nCounter, Integer.parseInt(soundVal));
 
         ((MainTabs) getActivity()).getxVals().add(Integer.parseInt(x));
         ((MainTabs) getActivity()).getyVals().add(Integer.parseInt(y));
 
-        DataPoint[] currData = new DataPoint[]{gasPoint,tempPoint,soundPoint};
-        return currData;
+        //DataPoint[] currData = new DataPoint[]{gasPoint,tempPoint,soundPoint};
+        return tempPoint;
     }
 
 }

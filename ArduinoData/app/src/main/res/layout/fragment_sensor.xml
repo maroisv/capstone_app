@@ -26,6 +26,7 @@
         android:id="@+id/textView2"
         android:layout_below="@+id/graph2"
         android:layout_alignLeft="@+id/graph2"
+        android:visibility="invisible"
          />
 
 
@@ -36,6 +37,7 @@
         android:id="@+id/textView0"
         android:layout_below="@+id/button2"
         android:layout_alignLeft="@+id/button2"
+        android:visibility="invisible"
          />
 
     <Button
@@ -47,17 +49,27 @@
         android:layout_alignParentLeft="true"
         />
 
+    <Button
+        android:text="Stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonStop"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        />
+
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
-        android:layout_height="100dip"
+        android:layout_height="50dip"
         android:id="@+id/graph1"
         android:layout_below="@+id/textView0"
         android:layout_alignLeft="@+id/textView0"
+        android:visibility="invisible"
        />
 
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
-        android:layout_height="100dip"
+        android:layout_height="200dip"
         android:id="@+id/graph2"
         android:layout_below="@+id/textView1"
         android:layout_alignLeft="@+id/textView1"
@@ -65,10 +77,11 @@
 
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
-        android:layout_height="100dip"
+        android:layout_height="50dip"
         android:id="@+id/graph3"
         android:layout_below="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
+        android:visibility="invisible"
         />
 
 </RelativeLayout>
