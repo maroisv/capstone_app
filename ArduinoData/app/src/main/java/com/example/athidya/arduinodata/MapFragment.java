@@ -49,6 +49,7 @@ public class MapFragment extends Fragment {
     Button btnStart;
 
     SampleDynamicSeries series;
+    SampleDynamicSeries seriesob;
 
 /* mapping information given in coordinate (x,y)
 *  orientation float
@@ -63,6 +64,8 @@ public class MapFragment extends Fragment {
 
         List<Integer> xVals = ((MainTabs) getActivity()).getxVals();
         List<Integer> yVals = ((MainTabs) getActivity()).getyVals();
+        List<Integer> xObVals = ((MainTabs) getActivity()).getxobVals();
+        List<Integer> yObVals = ((MainTabs) getActivity()).getyobVals();
 
         xVals.add(0);
         yVals.add(0);
@@ -80,21 +83,24 @@ public class MapFragment extends Fragment {
         // turn the above arrays into XYSeries':
         // (Y_VALS_ONLY means use the element index as the x value)
         series = new SampleDynamicSeries(xVals, yVals, "Series1");
+        seriesob = new SampleDynamicSeries(xVals, yVals, "Series Object");
 
         LineAndPointFormatter series1Format = new LineAndPointFormatter(Color.RED, Color.GREEN, null, null);
-
+        LineAndPointFormatter seriesObjFormat = new LineAndPointFormatter(null, Color.BLUE, null, null);
         //smoothing if necessary
         /*series1Format.setInterpolationParams(
                 new CatmullRomInterpolator.Params(10, CatmullRomInterpolator.Type.Centripetal));*/
 
         // add a new series' to the xyplot:
         map.addSeries(series, series1Format);
+        map.addSeries(seriesob, seriesObjFormat);
 
         map.getGraph().getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).setFormat(new Format() {
             @Override
             public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
                 int i = Math.round(((Number) obj).floatValue());
                 return toAppendTo.append(((MainTabs) getActivity()).getxVals().get(i));
+                //toAppendTo.append(((MainTabs) getActivity()).getxobVals().get(i));
             }
             @Override
             public Object parseObject(String source, ParsePosition pos) {
@@ -112,6 +118,7 @@ public class MapFragment extends Fragment {
 
             series.setVals(((MainTabs) getActivity()).getxVals(),
                             ((MainTabs) getActivity()).getyVals());
+            seriesob.setVals(((MainTabs) getActivity()).getxobVals(), ((MainTabs) getActivity()).getyobVals());
             map.redraw();
             //doTimerTask();
         }
