@@ -32,6 +32,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -58,6 +60,14 @@ public class MainTabs extends AppCompatActivity {
     ConnectBT connectionThread;
     Button btnDis;
     String[] sendCoords = {"", "", "", "", "", ""};
+
+    List<Integer> xVals = new ArrayList<>();
+    List<Integer> yVals = new ArrayList<>();
+
+    public List<Integer> getxVals() { return xVals; };
+
+    public List<Integer> getyVals() { return yVals; };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

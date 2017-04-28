@@ -47,6 +47,8 @@ public class SensorFragment extends Fragment {
     String ob2;
     String ob3;
 
+    boolean running = false;
+
     LineGraphSeries<DataPoint> gasSeries;
     LineGraphSeries<DataPoint> tempSeries;
     LineGraphSeries<DataPoint> soundSeries;
@@ -136,9 +138,25 @@ public class SensorFragment extends Fragment {
 
     View.OnClickListener mButtonStartListener = new View.OnClickListener() {
         public void onClick(View v) {
-            doTimerTask();
+
+            if (!running) {
+                doTimerTask();
+                running = true;
+            } else {
+                stop();
+                running = false;
+            }
         }
     };
+
+    public void stop() {
+        t.cancel();
+        mTimerTask.cancel();
+        ((MainTabs) getActivity()).sendCommand("x");
+        ((MainTabs) getActivity()).sendCommand("b");
+
+    }
+
 
 
     public void doTimerTask(){
@@ -164,7 +182,7 @@ public class SensorFragment extends Fragment {
             }};
 
         // public void schedule (TimerTask task, long delay, long period)
-        t.schedule(mTimerTask, 2000, 2000);  //
+        t.schedule(mTimerTask, 100, 2000);  //
 
     }
     private DataPoint[] readData() {
@@ -195,6 +213,9 @@ public class SensorFragment extends Fragment {
         DataPoint gasPoint = new DataPoint(nCounter, Integer.parseInt(gasVal));
         DataPoint tempPoint = new DataPoint(nCounter, Integer.parseInt(tempVal));
         DataPoint soundPoint = new DataPoint(nCounter, Integer.parseInt(soundVal));
+
+        ((MainTabs) getActivity()).getxVals().add(Integer.parseInt(x));
+        ((MainTabs) getActivity()).getyVals().add(Integer.parseInt(y));
 
         DataPoint[] currData = new DataPoint[]{gasPoint,tempPoint,soundPoint};
         return currData;
