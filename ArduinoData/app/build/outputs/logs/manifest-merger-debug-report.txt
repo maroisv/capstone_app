@@ -36,7 +36,7 @@ MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\shani\capstone
 MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\shani\capstone_app\ArduinoData\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.3.1\AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:support-compat:25.3.1] C:\Users\shani\capstone_app\ArduinoData\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.3.1\AndroidManifest.xml:29:5-20
 	android:label
-		ADDED from C:\Users\shani\capstone_app\ArduinoData\app\src\main\AndroidManifest.xml:11:9-41
+		ADDED from C:\Users\shani\capstone_app\ArduinoData\app\src\main\AndroidManifest.xml:11:9-58
 	android:supportsRtl
 		ADDED from C:\Users\shani\capstone_app\ArduinoData\app\src\main\AndroidManifest.xml:12:9-35
 	android:allowBackup

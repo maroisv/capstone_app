@@ -116,11 +116,11 @@ public class MapFragment extends Fragment {
     View.OnClickListener mButtonStartListener = new View.OnClickListener() {
         public void onClick(View v) {
 
-            series.setVals(((MainTabs) getActivity()).getxVals(),
-                            ((MainTabs) getActivity()).getyVals());
-            seriesob.setVals(((MainTabs) getActivity()).getxobVals(), ((MainTabs) getActivity()).getyobVals());
-            map.redraw();
-            //doTimerTask();
+            //series.setVals(((MainTabs) getActivity()).getxVals(),
+            //                ((MainTabs) getActivity()).getyVals());
+            //seriesob.setVals(((MainTabs) getActivity()).getxobVals(), ((MainTabs) getActivity()).getyobVals());
+            //map.redraw();
+            doTimerTask();
         }
     };
 
@@ -132,16 +132,17 @@ public class MapFragment extends Fragment {
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
+                        series.setVals(((MainTabs) getActivity()).getxVals(),
+                                ((MainTabs) getActivity()).getyVals());
+                        seriesob.setVals(((MainTabs) getActivity()).getxobVals(), ((MainTabs) getActivity()).getyobVals());
                         map.redraw();
                         Log.d("Map", "Redrew map");
-                        //readData();
-                        //plot coordsArr[0] for x and coordsArr[1] for y
                     }
                 });
             }};
 
         // public void schedule (TimerTask task, long delay, long period)
-        t.schedule(mTimerTask, 3000, 1000);  //
+        t.schedule(mTimerTask, 500, 2000);  //
 
     }
 
