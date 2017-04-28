@@ -4,12 +4,12 @@
         "source": "C:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.3.1\\res\\anim\\design_fab_in.xml"
     },
     {
-        "merged": "C:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
-        "source": "C:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.3.1\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
-    },
-    {
         "merged": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
         "source": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.3.1\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.3.1\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     },
     {
         "merged": "C:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",

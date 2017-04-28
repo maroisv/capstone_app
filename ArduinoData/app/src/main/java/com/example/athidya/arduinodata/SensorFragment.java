@@ -46,6 +46,15 @@ public class SensorFragment extends Fragment {
     String ob1;
     String ob2;
     String ob3;
+    double obj1ang;
+    double obj2ang;
+    double obj3ang;
+    double xobj1;
+    double yobj1;
+    double xobj2;
+    double yobj2;
+    double xobj3;
+    double yobj3;
 
     boolean running = false;
 
@@ -212,6 +221,18 @@ public class SensorFragment extends Fragment {
         ob1 = mapCoords[3];
         ob2 = mapCoords[4];
         ob3 = mapCoords[5];
+        obj1ang = Integer.parseInt(orient) - 90;
+        obj2ang = Integer.parseInt(orient);
+        obj3ang = Integer.parseInt(orient) + 90;
+        ob1 = mapCoords[3];
+        ob2 = mapCoords[4];
+        ob3 = mapCoords[5];
+        xobj1 = Math.cos(obj1ang)*Double.parseDouble(ob1);
+        yobj1 = Math.sin(obj1ang)*Double.parseDouble(ob1);
+        xobj2 = Math.cos(obj2ang)*Double.parseDouble(ob2);
+        yobj2 = Math.sin(obj2ang)*Double.parseDouble(ob2);
+        xobj3 = Math.cos(obj3ang)*Double.parseDouble(ob3);
+        yobj3 = Math.sin(obj3ang)*Double.parseDouble(ob3);
         Log.d("Sensors", "Coord: " + x + ',' + y + "," + orient + "," + ob1 + ',' + ob2 + ',' + ob3);
 
         String coords = x + ',' + y + "," + orient + "," + ob1 + ',' + ob2 + ',' + ob3;
@@ -222,6 +243,20 @@ public class SensorFragment extends Fragment {
 
         ((MainTabs) getActivity()).getxVals().add(Integer.parseInt(x));
         ((MainTabs) getActivity()).getyVals().add(Integer.parseInt(y));
+
+        if(xobj1<100 && yobj1<100) {
+            ((MainTabs) getActivity()).getxobVals().add((int) xobj1);
+            ((MainTabs) getActivity()).getyobVals().add((int) yobj1);
+        }
+        if (xobj2<100&&yobj2<100) {
+            ((MainTabs) getActivity()).getxobVals().add((int) xobj2);
+            ((MainTabs) getActivity()).getyobVals().add((int) yobj2);
+        }
+        if (xobj3<100&&yobj3<100) {
+            ((MainTabs) getActivity()).getxobVals().add((int) xobj3);
+            ((MainTabs) getActivity()).getyobVals().add((int) yobj3);
+        }
+
 
         //DataPoint[] currData = new DataPoint[]{gasPoint,tempPoint,soundPoint};
         return tempPoint;

@@ -46,8 +46,6 @@ public class MapFragment extends Fragment {
     TimerTask mTimerTask;
     final Handler handler = new Handler();
     Timer t = new Timer();
-    MainTabs main;
-    String[] coordsArr;
     Button btnStart;
 
     SampleDynamicSeries series;

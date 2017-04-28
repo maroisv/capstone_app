@@ -64,6 +64,12 @@ public class MainTabs extends AppCompatActivity {
     List<Integer> xVals = new ArrayList<>();
     List<Integer> yVals = new ArrayList<>();
 
+    List<Integer> xValsob = new ArrayList<>();
+    List<Integer> yValsob = new ArrayList<>();
+
+    public List<Integer> getxobVals() { return xValsob; };
+    public List<Integer> getyobVals() { return yValsob; };
+
     public List<Integer> getxVals() { return xVals; };
 
     public List<Integer> getyVals() { return yVals; };

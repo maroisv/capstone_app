@@ -12,12 +12,12 @@
         "source": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.3.1\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
     },
     {
-        "merged": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_password_eye.xml",
-        "source": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.3.1\\res\\drawable\\design_password_eye.xml"
-    },
-    {
         "merged": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
         "source": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.3.1\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_password_eye.xml",
+        "source": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.3.1\\res\\drawable\\design_password_eye.xml"
     },
     {
         "merged": "C:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_bottom_navigation_item_background.xml",
@@ -30,6 +30,10 @@
     {
         "merged": "C:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
         "source": "C:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.3.1\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\robotedit.png",
+        "source": "C:\\Users\\shani\\capstone_app\\ArduinoData\\app\\src\\main\\res\\drawable\\robotedit.png"
     },
     {
         "merged": "C:\\Users\\Athidya\\AndroidStudioProjects\\ArduinoData\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
